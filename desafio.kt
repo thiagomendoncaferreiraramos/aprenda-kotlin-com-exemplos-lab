@@ -85,6 +85,40 @@ fun main() {
     mfes.matricular(joao, mariaO, jamesT)
     println()
     mfes.listarInscritos()
-    //TODO("Analise as classes modeladas para este domínio de aplicação e pense em formas de evoluí-las.")
-    //TODO("Simule alguns cenários de teste. Para isso, crie alguns objetos usando as classes em questão.")
+
+    println()
+    mfes.desmatricular(joao)
+    mfes.desmatricular(paulo)
+    println()
+    mfes.listarInscritos()
+
+    val lp = Formacao("Linguagens de Programação", listOf(
+        ConteudoEducacional("Introdução às Linguagens de Programação", Nivel.BASICO, 120),
+        ConteudoEducacional("Paradigmas de Programação", Nivel.INTERMEDIARIO, 120),
+        ConteudoEducacional("Programação Funcional", Nivel.ARROJADO, 300),
+        ConteudoEducacional("Programação Orientada a Objetos", Nivel.ARROJADO, 300),
+        ConteudoEducacional("Programação Procedural", Nivel.ARROJADO, 300),
+        ConteudoEducacional("Programação Lógica", Nivel.ARROJADO, 300))
+    )
+
+    lp.professores.addAll(listOf(carlos))
+
+    val IA = Formacao("Inteligência Artificial", listOf(
+        ConteudoEducacional("Introdução à Inteligência Artificial", Nivel.BASICO, 120),
+        ConteudoEducacional("Aprendizado de Máquina", Nivel.INTERMEDIARIO, 120),
+        ConteudoEducacional("Redes Neurais", Nivel.ARROJADO, 300),
+        ConteudoEducacional("Processamento de Linguagem Natural", Nivel.ARROJADO, 300),
+        ConteudoEducacional("Visão Computacional", Nivel.ARROJADO, 300),
+        ConteudoEducacional("Robótica", Nivel.ARROJADO, 300))
+    )
+
+    IA.professores.addAll(listOf(mariaS,james))
+
+    println()
+    lp.matricular(godofredo,carla)
+    println(lp)
+    println()
+    IA.matricular(marcos, godofredo)
+    println(IA)
+
 }
