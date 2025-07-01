@@ -15,16 +15,37 @@ data class ConteudoEducacional(val nome: String, val nivel: Nivel, val duracao: 
 
 data class Formacao(val nome: String, var conteudos: List<ConteudoEducacional>) {
 
-    val inscritos = mutableListOf<Aluno>()
+    private val inscritos = mutableListOf<Aluno>()
+    val professores = mutableListOf<Professor>()
 
     override fun toString(): String {
         val conteudosStr = conteudos.joinToString(separator = "\n") { it.toString() }
-        return "Formação: $nome\nConteúdos:\n$conteudosStr\nTotal de inscritos: ${inscritos.size}\n"
+        val professoresStr = professores.joinToString(separator = "\n") { "\t${it.nome}" }
+        return "Formação: $nome\nConteúdos:\n$conteudosStr\nPorfessores:\n$professoresStr\nTotal de inscritos: ${inscritos.size}\n"
     }
     
-    fun matricular(aluno: Aluno) {
-        println("Matriculando ${aluno.nome} na formação $nome")
-        inscritos.add(aluno)
+    fun matricular(vararg aluno: Aluno) {
+        for (a in aluno) {
+            println("Matriculando ${a.nome} na formação $nome")
+            inscritos.add(a)
+        }
+        
+    }
+
+    fun desmatricular(vararg aluno: Aluno) {
+        for (a in aluno) {
+            println("Desmatriculando ${a.nome} da formação $nome")
+            inscritos.remove(a)
+        }
+    }
+
+    fun listarInscritos() {
+        if (inscritos.isEmpty()) {
+            println("Nenhum aluno matriculado na formação $nome.")
+        } else {
+            println("Alunos matriculados na formação $nome:")
+            inscritos.forEach { println("\t${it.nome}") }
+        }
     }
 }
 
@@ -41,6 +62,29 @@ fun main() {
     ))
 
     println(mfes)
+    val carlos = Professor("Dr. Carlos Pereira", "cpereira@dio.me")
+    val mariaS = Professor("Dra. Maria Souza", "msouza@dio.me")
+    val james = Professor("Dr. James Smith", "jsmith@dio.me")
+    val charles = Professor("Dr. Charles Xavier", "cxavier@dio.me")
+
+    println()
+    
+
+    mfes.professores.addAll(listOf(carlos, mariaS, james, charles))
+    print(mfes)
+
+    val joao = Aluno("João Silva", "js@qualquermail.com")
+    val mariaO = Aluno("Maria Oliveira", "mo@coolmail.com")
+    val jamesT = Aluno("James Torrada", "torradao@mit.com")
+    val godofredo = Aluno("Godofredo Epaminondas", "gd@bobinhos.com")
+    val paulo = Aluno("Paulo Otário", "po@po.com")
+    val carla = Aluno("Carla Carvalho", "carvalho@gemail.com")
+    val marcos = Aluno("Marcos Garrido", "varrevarre@ola.com")
+
+    println()
+    mfes.matricular(joao, mariaO, jamesT)
+    println()
+    mfes.listarInscritos()
     //TODO("Analise as classes modeladas para este domínio de aplicação e pense em formas de evoluí-las.")
     //TODO("Simule alguns cenários de teste. Para isso, crie alguns objetos usando as classes em questão.")
 }
